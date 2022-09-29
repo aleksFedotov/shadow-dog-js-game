@@ -72,12 +72,9 @@ export default class Player extends Sprite {
     }
 
     // horizontal movement
-    if (input.includes('ArrowRight') && this.currentState !== this.states[6])
+    if (input.includes('d') && this.currentState !== this.states[6])
       this.x += this.maxSpeed;
-    else if (
-      input.includes('ArrowLeft') &&
-      this.currentState !== this.states[6]
-    )
+    else if (input.includes('a') && this.currentState !== this.states[6])
       this.x -= this.maxSpeed;
     else this.speed = 0;
     // horizontal boundaries

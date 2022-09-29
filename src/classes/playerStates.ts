@@ -37,10 +37,12 @@ export class Sitting extends State {
   handleInput(input: string[]): void {
     // this.game.player.energy += 3;
     // if (this.game.player.energy >= 100) this.game.player.energy = 100;
-    if (input.includes('ArrowLeft') || input.includes('ArrowRight')) {
+    if (input.includes('a') || input.includes('d')) {
       this.game.player.setState(states.RUNNING, 1);
-    } else if (input.includes('Control') && this.game.player.energy > 0) {
+    } else if (input.includes(' ') && this.game.player.energy > 0) {
       this.game.player.setState(states.ROLLING, 2);
+    } else if (input.includes('w')) {
+      this.game.player.setState(states.JUMPING, 1);
     }
   }
 }
@@ -68,11 +70,11 @@ export class Running extends State {
     );
     // this.game.player.energy++;
     // if (this.game.player.energy >= 100) this.game.player.energy = 100;
-    if (input.includes('ArrowDown')) {
+    if (input.includes('s')) {
       this.game.player.setState(states.SITTING, 0);
-    } else if (input.includes('ArrowUp')) {
+    } else if (input.includes('w')) {
       this.game.player.setState(states.JUMPING, 1);
-    } else if (input.includes('Control') && this.game.player.energy > 0) {
+    } else if (input.includes(' ') && this.game.player.energy > 0) {
       this.game.player.setState(states.ROLLING, 2);
     }
   }
@@ -96,9 +98,9 @@ export class Jumping extends State {
   handleInput(input: string[]): void {
     if (this.game.player.vy > 0) {
       this.game.player.setState(states.FALLING, 1);
-    } else if (input.includes('Control')) {
+    } else if (input.includes(' ')) {
       this.game.player.setState(states.ROLLING, 2);
-    } else if (input.includes('ArrowDown')) {
+    } else if (input.includes('s')) {
       this.game.player.setState(states.DIVING, 0);
     }
   }
@@ -121,7 +123,7 @@ export class Falling extends State {
   handleInput(input: string[]): void {
     if (this.game.player.onGround()) {
       this.game.player.setState(states.RUNNING, 1);
-    } else if (input.includes('ArrowDown')) {
+    } else if (input.includes('s')) {
       this.game.player.setState(states.DIVING, 0);
     }
   }
@@ -148,17 +150,17 @@ export class Rolling extends State {
       )
     );
 
-    if (!input.includes('Control') && this.game.player.onGround()) {
+    if (!input.includes(' ') && this.game.player.onGround()) {
       this.game.player.setState(states.RUNNING, 1);
-    } else if (!input.includes('Control') && !this.game.player.onGround()) {
+    } else if (!input.includes(' ') && !this.game.player.onGround()) {
       this.game.player.setState(states.FALLING, 1);
     } else if (
-      input.includes('ArrowUp') &&
-      input.includes('Control') &&
+      input.includes('w') &&
+      input.includes(' ') &&
       this.game.player.onGround()
     ) {
       this.game.player.vy -= 27;
-    } else if (input.includes('ArrowDown') && !this.game.player.onGround()) {
+    } else if (input.includes('s') && !this.game.player.onGround()) {
       this.game.player.setState(states.DIVING, 0);
     } else if (this.game.player.energy <= 0) {
       this.game.player.setState(states.RUNNING, 1);
@@ -198,7 +200,7 @@ export class Diving extends State {
           )
         );
       }
-    } else if (input.includes('Control') && this.game.player.onGround()) {
+    } else if (input.includes(' ') && this.game.player.onGround()) {
       this.game.player.setState(states.ROLLING, 2);
     }
   }

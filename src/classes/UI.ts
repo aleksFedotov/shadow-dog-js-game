@@ -41,6 +41,15 @@ export default class UI {
     for (let i = 0; i < this.game.lives; i++) {
       context.drawImage(this.image, 35 * i + 20, 125, 25, 25);
     }
+
+    // instructions
+    context.textAlign = 'center';
+    context.font = `${this.fonstSize * 0.5}px Heavitas`;
+    context.fillText(
+      `(W,A,S,D = Move, Space = Roll)`,
+      this.game.width * 0.5,
+      20
+    );
     // game over messages
     if (this.game.gameOver) {
       context.textAlign = 'center';
