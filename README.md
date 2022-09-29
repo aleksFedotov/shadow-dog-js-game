@@ -2,11 +2,9 @@
 
 This project is just me trying to build a simple JavaScript game
 
-Demo:
-
 ## How to play?
 
-You can use [demo version]()
+You can use [demo version](https://aleksfedotov.github.io/shadow-dog-js-game/)
 
 or just run
 
